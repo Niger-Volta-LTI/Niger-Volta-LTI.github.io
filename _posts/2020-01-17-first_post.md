@@ -1,12 +1,3 @@
----
-layout: default
----
+# Hello World
 
-## Hello World
-
-This is an initial “Hello World” blog entry
-_yay_
-
-[back](./)
-
-
+This is an initial “Hello World” blog entry! _yay_
