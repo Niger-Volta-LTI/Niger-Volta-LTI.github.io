@@ -9,7 +9,7 @@
 title: Niger-Volta Language Technologies Institute 
 description: Speech Recognition, Language Identification, Machine Translation & Natural Language Processing for West African Languages
 github_username: ruohoruotsi
-theme: jekyll-theme-cayman
+theme: minima
 
 # Set this to true to get LaTeX math equation support
 use_math: 
