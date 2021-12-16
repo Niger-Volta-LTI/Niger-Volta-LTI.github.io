@@ -1,11 +1,13 @@
 
 # Kaldi recipe for Yorùbá
 
-Today we created a [Kaldi](https://github.com/Niger-Volta-LTI/kaldi/tree/egs-yoruba-recipe) recipe for Yorùbá based on the following speech datasets: [SLR86](https://www.openslr.org/86/), for training & [Lagos-NWU](https://repo.sadilar.org/handle/20.500.12185/431) for evaluation. 
+Today we created a [Kaldi](https://github.com/Niger-Volta-LTI/kaldi/tree/egs-yoruba-recipe) recipe for Yorùbá based on the following speech datasets: 
+ * [SLR86](https://www.openslr.org/86/) for training 
+ * [Lagos-NWU](https://repo.sadilar.org/handle/20.500.12185/431) for evaluation. 
 
 The recipe is a fork of [Mini LibriSpeech](https://www.openslr.org/31/) that follows the traditional HMM-GMM low-data recipe, bootstrapping alignments from a monophone model and then proceeding to train a delta-delta triphone system, followed by LDA+MLLT, LDA+MLLT+SAT finally doing language-model (LM) rescoring with a "big" 4gram model ... to get a grand WER evaluation of 80%.
 
-I don't think I've ever been as excited for lift-off with such a high-error rate. What it represents rather is lift-off and a working platform in Kaldi for experimentation, making baselines. Next we shall do lots of decoding of untranscribed Yorùbá audio for error analysis. There are many vectors for improvement including data augmentation, training beyond a simple triphone model, say attempt a LF-MMI training on a GPU augmentation ... but the basics are in place.
+I don't think I've ever been as excited for lift-off with such a high-error rate. What it represents rather is a working platform in Kaldi for experimentation, making baselines. Next, we shall do lots of decoding of untranscribed Yorùbá audio for error analysis. There are many vectors for improvement including data augmentation, training beyond a simple triphone model, say attempt a LF-MMI training on a GPU ... but the basics are in place.
 
 ## Results
 
