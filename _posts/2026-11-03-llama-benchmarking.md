@@ -348,8 +348,16 @@ Bref, we need to keep Flash Attention on, otherwise at big (50K KV cache) text-g
 - Expanding context size can slow decode TPS to from 26 &rarr; 22 TPS
 - `Qwen3.8-27B` is plenty fast for prompt-processing 
 - We can expect real-world performance between 20-26 TPS, which is acceptable for our misc. tasks
-- More work is required to optimize the sampler settings for coherence, text-generation quality
+- For the optimal sampler settings, re: for coherence, text-generation quality, the best-practise is to start from the 
+[Model Card defaults](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF)
 
+    Sampling Parameters: We suggest using the following sets of sampling parameters &rarr;
+ 
+    ```text
+    Thinking Mode: 
+    temperature=1.0, top_p=0.95, top_k=20, min_p=0.0, presence_penalty=0.0, repetition_penalty=1.0
+    ```
+    
 
 ## References
 
