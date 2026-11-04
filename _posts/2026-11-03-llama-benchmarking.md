@@ -42,7 +42,7 @@ For Qwen models, is the typically recommended sampling is `temp ~0.6-0.7`, `top-
 get system/user roles and think tags right.
 
 
-## llama-bench :rocket:
+## llama-bench 🚀
 
 ### Baseline Performance 
 Baseline performance for the 3 models under test, `pp` is prompt (input) processing, `tg` is token-generation
@@ -363,4 +363,4 @@ Bref, we need to keep Flash Attention on, otherwise at big (50K KV cache) text-g
 ## References
 
 - Benchmark deep dive inspired by [ewams post ](https://ewams.net/?date=2026%2F04%2F26&view=How_to_Benchmark_AI_Performance_with_llama-bench_%28llama.cpp%29)on the matter
-- `Usage: llama-bench` &rarr; https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md
+- `Usage: llama-bench` &rarr; [llama-bench/README.md](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md)
