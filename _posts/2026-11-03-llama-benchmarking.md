@@ -1,5 +1,5 @@
 
-# Benchmarking a local LLM performance
+# Benchmarking local LLM performance
 
 Today, I'm benchmarking the local performance of a `Qwen3.8-27B` model running with `llama-server` on my home 
 RTX 3090 (24GB) GPU. For LLM inference, I'm looking to understand the trade-offs for different settings on 
@@ -42,8 +42,9 @@ For Qwen models, is the typically recommended sampling is `temp ~0.6-0.7`, `top-
 get system/user roles and think tags right.
 
 
-## llama-bench baselines
+## llama-bench :rocket:
 
+### Baseline Performance 
 Baseline performance for the 3 models under test, `pp` is prompt (input) processing, `tg` is token-generation
 
 ```text
@@ -67,7 +68,7 @@ $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf
 | qwen35 27B Q4_K - Medium       |  16.39 GiB |    26.90 B | CUDA       |  -1 |           tg128 |         41.94 ± 0.09 |
 ```
 
-## Performance vs. Context Size
+### Performance vs. Context Size
 Prompt Processing (pp) of 512 tokens, @d5000 means how many tokens are in the kv cache (context cache)
 So `pp512 @ d20000` means the test was measuring the speed of prompt processing 512 tokens with 20,000 tokens 
 in the KV cache. 
@@ -112,7 +113,7 @@ The results are kinda verbose, but we can see that the baseline for our desired 
 as the context grows
 
 
-## Performance vs. Prompt size
+### Performance vs. Prompt size
 This will only test prompt processing, no token generation, which is disabled with `--n-gen 0`
 
 ```text
@@ -159,7 +160,7 @@ $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen
 Everything is blazing fast, nothing to see here
 
 
-## Performance vs. batch-size @ 5000 token Prompt size
+### Performance vs. batch-size @5k token Prompt size
 
 ```text
 $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen3.8-27B-UD-Q6_K_XL.gguf --model ./Qwen3.8-27B-UD-Q8_K_XL.gguf --batch-size 256,512,1024,2048,4096,8192,10240 --n-prompt 5000 --n-gen 0
@@ -190,7 +191,7 @@ $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen
 Our desired `Qwen3.8-27B` model is pretty speedy at `2111 TPS` and is just as fast as the smaller `3.6` one
 
 
-## Performance vs. batch-size @ 10000 token Prompt size
+### Performance vs. batch-size @10k token Prompt size
 
 ```text
 $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen3.8-27B-UD-Q6_K_XL.gguf --model ./Qwen3.8-27B-UD-Q8_K_XL.gguf --batch-size 256,512,1024,2048,4096,8192,10240 --n-prompt 10000 --n-gen 0
@@ -224,7 +225,7 @@ ggml_cuda_init: found 2 CUDA devices (Total VRAM: 48214 MiB):
 ditto qu'en haut (above)
 
 
-## Performance vs. ubatch
+### Performance vs. ubatch
 
 ```text
 $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen3.8-27B-UD-Q6_K_XL.gguf --model ./Qwen3.8-27B-UD-Q8_K_XL.gguf --ubatch-size 256,512,1024,2048,4096,8192 --n-prompt 0  --n-gen 500,1000
@@ -342,7 +343,7 @@ $ ../build/bin/llama-bench  --model ./Qwen3.6-27B-UD-Q4_K_XL.gguf --model ./Qwen
 ```
 Bref, we need to keep Flash Attention on, otherwise at big (50K KV cache) text-generation of 128 tokens can slow down to 16TPS!
 
-### So what have we learned ..???
+## So what have we learned ..???
 - Defaults for `batch-size/ubatch` are good enough
 - Flash Attention is crucial, otherwise we might lose 10 TPS
 - Expanding context size can slow decode TPS to from 26 &rarr; 22 TPS
